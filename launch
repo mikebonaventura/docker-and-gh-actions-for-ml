@@ -1,0 +1,27 @@
+tenant_id="b38d9113-916c-45ff-b94d-1c1f7076e155"
+subscription_id="14dd33c5-c6ed-4d4c-bbc0-34737f8b5311"
+sp_username="6bc72f80-5b22-4b62-9323-8236a9737ace"
+sp_password="i.58Q~zrhrjIe69O8GiBC63eS7FOU.BeHVrcgbUL"
+resource_group="hncdi-explain-supercharge"
+
+az login --service-principal --tenant "$tenant_id" -u "$sp_username" -p "$sp_password"
+
+my_app_name="distilgpt2apibon"
+export $my_app_name
+az appservice plan create --name "$my_app_name-plan" --resource-group "$resource_group" --sku B2 --is-linux
+
+my_github_username=mikebonaventura
+export $my_github_username
+
+az webapp create --name "$my_app_name-app" \
+    --resource-group "$resource_group" \
+    --plan "$my_app_name-plan" \
+    --deployment-container-image-name "ghcr.io/$my_github_username/docker-and-github-actions-for-ml:latest"
+
+# Tell Azure App Service that our API is listening on port 8000.
+az webapp config appsettings set \
+    --resource-group "$resource_group" \
+    --name "$my_app_name-app" \
+    --settings WEBSITES_PORT=8000
+
+az webapp deployment container config --enable-cd=true -g hncdi-explain-supercharge -n $my_app_name-app
