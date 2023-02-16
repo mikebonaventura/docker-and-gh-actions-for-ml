@@ -22,8 +22,7 @@ jobs:
           cache: poetry
 
       - name: Install project
-      
         run: poetry install --no-interaction
 
-       - name: Lint
+      - name: Lint
         run: poetry run task lint
