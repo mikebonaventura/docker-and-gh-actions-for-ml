@@ -1,6 +1,5 @@
 import logging
 from functools import cache
-
 from importlib.metadata import version
 
 from fastapi import FastAPI
