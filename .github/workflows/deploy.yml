@@ -35,3 +35,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+           
+      - name: Call Azure App Service webhook
+        run: curl -v -X POST '${{ secrets.https://$distilgpt2apibon-app:GwtZGfeFNfti1BbRpcjhah0tubw57A9kuPoee211t2MvtMcpp5S8muJghahk@distilgpt2apibon-app.scm.azurewebsites.net/docker/hook }}'
