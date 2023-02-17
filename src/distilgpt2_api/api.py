@@ -1,5 +1,6 @@
 import logging
 from functools import cache
+from importlib.metadata import version
 
 from fastapi import FastAPI
 
@@ -21,7 +22,7 @@ async def on_startup():
 
 @app.get("/")
 async def health():
-    return {"health": "ok"}
+    return {"health": "ok", "version": version(__name__.split(".", maxsplit=1)[0])}
 
 
 @app.get("/{prompt}")
