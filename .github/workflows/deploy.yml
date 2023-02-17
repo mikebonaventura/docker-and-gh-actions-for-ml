@@ -35,6 +35,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-           
+
       - name: Call Azure App Service webhook
-        run: curl -v -X POST '${{ secrets.AZURE_APP_WEBHOOK_URL }}'
+        run: curl -v -X POST '${{ secrets.AZURE_APP_WEBHOOK_URL }}'           
